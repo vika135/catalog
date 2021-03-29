@@ -1,0 +1,50 @@
+<div class="catalog-category-container">
+    <h5 class="catalog-category-container__title">
+        {{category.name}}
+    </h5>
+    <div class="catalog-category-container-menu card">
+        <ul class="list-group list-group-flush">
+            <li
+                *ngFor="let subcategory of subCategories"
+                class="list-group-item"
+                (click)="navigateToSubcategory(subcategory.id)">
+                {{subcategory.name}}
+            </li>
+        </ul>
+    </div>
+    <div class="catalog-category-container-filter">
+        Цена:
+        <input type="search"
+               autocomplete="off"
+               class="catalog-category-container-filter__search price"
+               placeholder="от"
+               [(ngModel)]="minSearchValue"
+               (keyup)="onSearch()"
+        >
+        &#11834;
+        <input type="search"
+               autocomplete="off"
+               class="catalog-category-container-filter__search price"
+               placeholder="до"
+               [(ngModel)]="maxSearchValue"
+               (keyup)="onSearch()"
+        >
+    </div>
+</div>
+<div class="catalog-category-items" *ngIf="!isSubcategoryActive">
+<!--    <div class="catalog-category__search>">-->
+<!--    </div>-->
+    <input
+        class="catalog-category-container-filter__search"
+        type="search"
+        autocomplete="off"
+        placeholder="Поиск по категории"
+        [(ngModel)]="itemsSearchValue"
+        (keyup)="onSearch()"
+    >
+    <catalog-item-list
+        [items]="itemsToShow"
+    ></catalog-item-list>
+</div>
+<router-outlet></router-outlet>
+

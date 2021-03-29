@@ -1,0 +1,160 @@
+<div
+    *ngIf="createSuccess"
+    class="alert alert-success"
+    role="alert"
+    (click)="closeAlert()"
+>
+    Успешно добавлено
+</div>
+<div *ngIf="createError"
+     class="alert alert-danger"
+     role="alert"
+     (click)="closeAlert()"
+>
+    Что-то пошло не так
+</div>
+
+<form [formGroup]="itemForm" novalidate class="item-form container" (ngSubmit)="submit()">
+
+    <div class="form-floating mb-3">
+        <input
+            name="name"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="isInvalid('name')"
+            placeholder="Имя"
+            id="name"
+            formControlName="name"
+        />
+        <label for="name">Имя</label>
+        <div
+            class="invalid-feedback"
+            *ngIf="isInvalid('name')"
+        >
+            Введите имя
+        </div>
+    </div>
+    <div class="form-floating mb-3">
+        <input
+            name="price"
+            type="number"
+            class="form-control"
+            [class.is-invalid]="isInvalid('price')"
+            placeholder="Цена"
+            id="price"
+            formControlName="price"
+        />
+        <label for="price">Цена</label>
+        <div
+            class="invalid-feedback"
+            *ngIf="isInvalid('price')"
+        >
+            Введите цену
+        </div>
+    </div>
+    <div class="d-flex flex-column mb-3">
+        <label
+            class="mb-2"
+            for="picture"
+        >Изображение</label>
+        <input
+            type="file"
+            name="picture"
+            placeholder="Изображение"
+            formControlName="picture"
+            id="picture"
+            (change)="handleFileInput($event.target.files)"
+        />
+    </div>
+    <div class="form-floating mb-3">
+        <select
+            name="subcategory"
+            formControlName="subcategory"
+            id="subcategory"
+            class="form-select"
+            [class.is-invalid]="isInvalid('subcategory')"
+        >
+            <option
+                *ngFor="let subcategory of subcategories"
+                [value]="subcategory.id"
+            >
+                {{subcategory.name}}
+            </option>
+        </select>
+        <div
+            class="invalid-feedback"
+            *ngIf="isInvalid('subcategory')"
+        >
+            Выберите подкатегорию
+        </div>
+        <label for="subcategory">Подкатегория</label>
+    </div>
+    <div formArrayName="properties">
+        <ng-container
+            *ngFor="let pairFormGroup of getProperties().controls; let pairIdx = index"
+        >
+            <div
+                [formGroupName]="pairIdx"
+                class="row g-3"
+            >
+                <div  class="form-floating col-5 mb-3">
+                    <input
+                        [name]="'prop' + pairIdx"
+                        type="text"
+                        class="form-control"
+                        placeholder="Свойство"
+                        [id]="'prop' + pairIdx"
+                        formControlName="prop"
+                    />
+                    <label [for]="'prop' + pairIdx">Свойство</label>
+                </div>
+                <div class="form-floating col-5 mb-3">
+                    <input
+                        [name]="'propvalue' + pairIdx"
+                        type="text"
+                        class="form-control"
+                        placeholder="Значение"
+                        [id]="'propvalue' + pairIdx"
+                        formControlName="value"
+                    />
+                    <label [for]="'propvalue' + pairIdx">Значение</label>
+                </div>
+                <div class="col-2 mb-3 d-flex">
+                    <button
+                        class="btn btn-secondary btn-sm prop-delete-button"
+                        (click)="deleteProperty(pairIdx)"
+                    >
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col-12 mb-3">
+        <button
+            class="btn btn-outline-secondary"
+            (click)="addProperty()"
+        >
+            Добавить свойство
+        </button>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea
+            name="description"
+            placeholder="Описание"
+            id="description"
+            class="form-control"
+            formControlName="description" >
+        </textarea>
+        <label for="description">Описание</label>
+    </div>
+    <div class="col-12">
+        <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="itemForm.invalid"
+        >
+            Добавить товар
+        </button>
+    </div>
+</form>

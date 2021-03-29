@@ -1,0 +1,16 @@
+<div class="catalog-subcategory-container">
+    <div class="catalog-subcategory-container__title">
+        {{subcategory.name}}
+    </div>
+    <input
+        class="catalog-subcategory-container__search"
+        type="search"
+        autocomplete="off"
+        placeholder="Поиск по подкатегории"
+        [(ngModel)]="itemsSearchValue"
+        (keyup)="onSearch()"
+    >
+</div>
+<catalog-item-list
+    [items]="itemsToShow"
+></catalog-item-list>

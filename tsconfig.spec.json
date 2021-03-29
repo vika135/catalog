@@ -2,8 +2,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "types": [
+      "outDir": "./out-tsc/spec",
+      "experimentalDecorators": true,
+      "types": [
       "jasmine"
     ]
   },

@@ -1,0 +1,39 @@
+<div
+    class="card"
+    style="width: 18rem;"
+>
+    <img
+        [src]="item?.picture ? item.picture : '../../../../../assets/picture/large_product.jpg'"
+        class="card-img-top"
+        alt="image">
+    <div class="card-body">
+        <h5
+            class="card-title"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover"
+            data-bs-content="item?.description"
+        >
+            {{item.name}}
+        </h5>
+        <ng-container *ngIf="isOnPopularShowcase">
+            <span>От <span class="price">{{item.price}}</span></span>
+        </ng-container>
+        <ng-container *ngIf="!isOnPopularShowcase">
+            <h6
+                *ngIf="item.description"
+                class="card-subtitle mb-2 text-muted">
+                {{item.description}}
+            </h6>
+            <div class="card-text mb-1" *ngFor="let prop of properties">
+                <span>{{prop["prop"] + ": "}}</span>
+                <span>{{prop["value"]}}</span>
+            </div>
+            <span>Цена: {{item.price}}</span>
+        </ng-container>
+    </div>
+</div>
+
+<!--<ng-container-->
+<!--    *ngTemplateOutlet="itemProperties"-->
+<!--&gt;-->
+<!--</ng-container>-->
