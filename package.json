@@ -4,7 +4,8 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build",
+        "build": "ng build --prod --base-href \"https://vika135.github.io/catalog-site/\"",
+        "deploy": "npx angular-cli-ghpages --dir=dist/catalog",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"

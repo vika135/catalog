@@ -11,6 +11,11 @@ import { ItemFormComponent } from "./component/core/item-form/item-form.componen
 
 const routes: Routes = [
     {
+        path: "",
+        redirectTo: "welcome",
+        pathMatch: "full"
+    },
+    {
         path: "welcome",
         component: WelcomeComponent,
     },

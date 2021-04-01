@@ -1,3 +1,5 @@
+const gateway = "https://localhost:5001";
 export const environment = {
-  production: true
+    production: true,
+    apiEndpoint: gateway + "/api/",
 };
