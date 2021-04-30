@@ -2,4 +2,5 @@
     *ngFor="let item of items"
     [item]="item"
     [isOnPopularShowcase]="isOnPopularShowcase"
+    (delete)="this.delete.emit($event)"
 ></catalog-item>

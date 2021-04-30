@@ -20,7 +20,7 @@ const routes: Routes = [
         component: WelcomeComponent,
     },
     {
-        path: "create",
+        path: "add",
         component: ItemFormComponent,
     },
     {

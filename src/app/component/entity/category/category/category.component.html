@@ -1,7 +1,15 @@
 <div class="catalog-category-container">
     <h5 class="catalog-category-container__title">
-        {{category.name}}
+        {{category?.name}}
     </h5>
+    <input
+        class="catalog-category-container-filter__search"
+        type="search"
+        autocomplete="off"
+        placeholder="Поиск по категории"
+        [(ngModel)]="itemsSearchValue"
+        (keyup)="onSearch()"
+    >
     <div class="catalog-category-container-menu card">
         <ul class="list-group list-group-flush">
             <li
@@ -34,16 +42,9 @@
 <div class="catalog-category-items" *ngIf="!isSubcategoryActive">
 <!--    <div class="catalog-category__search>">-->
 <!--    </div>-->
-    <input
-        class="catalog-category-container-filter__search"
-        type="search"
-        autocomplete="off"
-        placeholder="Поиск по категории"
-        [(ngModel)]="itemsSearchValue"
-        (keyup)="onSearch()"
-    >
     <catalog-item-list
         [items]="itemsToShow"
+        (delete)="deleteItem($event)"
     ></catalog-item-list>
 </div>
 <router-outlet></router-outlet>

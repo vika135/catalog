@@ -1,8 +1,8 @@
 import {
-    Component,
+    Component, EventEmitter,
     HostBinding,
     Input,
-    OnInit
+    OnInit, Output
 } from "@angular/core";
 import { Item } from "../../../../model/item.model";
 import { Properties } from "../../../../model/properties.model";
@@ -17,6 +17,9 @@ export class ItemComponent implements OnInit {
 
     @Input() public item: Item;
     @Input() public isOnPopularShowcase = false;
+    @Output() delete: EventEmitter<string> = new EventEmitter();
+
+    description: string = "Подождите...";
 
     properties: Properties[];
 
@@ -27,4 +30,14 @@ export class ItemComponent implements OnInit {
         this.properties = JSON.parse(this.item.properties);
     }
 
+    deleteItem(id: string): void {
+        this.delete.emit(id);
+    }
+
+     wait(str: string): void {
+        this.description = "Подождите...";
+        setTimeout(() => {
+            this.description = str;
+        }, 250);
+    }
 }

@@ -1,20 +1,18 @@
 <div class="root">
     <catalog-header
         (search)="onSearch($event)"
+        (onAddNavigate)="navigateToAddItem()"
     ></catalog-header>
     <catalog-category-list
         [categories]="categories"
+        [class.hidden]="catsHidden"
     ></catalog-category-list>
-    <catalog-ad
-        (closeAd)="onCloseAd()"
-        [class.hidden]="adClosed"
-    ></catalog-ad>
     <div
         class="search-result"
         *ngIf="isOnSearch"
         [innerHTML]="isSearchItemsExist ? 'По вашему запросу найдено:' : 'По вашему запросу ничего не найдено :('" >
     </div>
-    <catalog-item-list *ngIf="isSearchItemsExist"
+    <catalog-item-list *ngIf="isSearchItemsExist && searchItems.length"
                        [items]="searchItems"
     ></catalog-item-list>
     <router-outlet></router-outlet>

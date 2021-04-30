@@ -5,7 +5,6 @@ import {
 } from "@angular/core";
 import {
     ActivatedRoute,
-    NavigationEnd,
     Router,
 } from "@angular/router";
 import { CategoryService } from "../../../../service/http/category.service";
@@ -46,17 +45,21 @@ export class CategoryComponent implements OnInit {
              this.categoryId = params.id;
              this.categoryService.getEntityById(this.categoryId).subscribe((category) => {
                 this.category = category;
-                this.itemService.getByEntity("category", this.category.id).subscribe(items => {
-                    this.items = items;
-                    this.itemsToShow = this.items;
-                    const prices = Array.from(this.items, item => item.price);
-                    this.minSearchValue = Math.min(...prices);
-                    this.maxSearchValue = Math.max(...prices);
-                });
-                this.subcategoryService.getByEntity("category", this.category.id).subscribe(subcategories => {
+                this.getItems();
+                this.subcategoryService.getByEntity("category", this.categoryId).subscribe(subcategories => {
                     this.subCategories = subcategories;
                 });
             });
+        });
+    }
+
+    getItems(): void {
+        this.itemService.getByEntity("category", this.categoryId).subscribe(items => {
+            this.items = items;
+            this.itemsToShow = this.items;
+            const prices = Array.from(this.items, item => item.price);
+            this.minSearchValue = Math.min(...prices);
+            this.maxSearchValue = Math.max(...prices);
         });
     }
 
@@ -75,5 +78,11 @@ export class CategoryComponent implements OnInit {
                 && item.price <= this.maxSearchValue
                 && item.name.includes(this.itemsSearchValue?.toLowerCase())
             );
+    }
+
+    deleteItem(id: string): void {
+        this.itemService.deleteEntity(id).subscribe(
+            () => this.getItems()
+        )
     }
 }

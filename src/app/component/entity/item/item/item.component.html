@@ -1,5 +1,8 @@
 <div
     class="card"
+    (mouseover)="wait(item?.description)"
+    [matTooltip]="description"
+    [matTooltipClass]="'catalog-item__tooltip'"
     style="width: 18rem;"
 >
     <img
@@ -19,21 +22,12 @@
             <span>От <span class="price">{{item.price}}</span></span>
         </ng-container>
         <ng-container *ngIf="!isOnPopularShowcase">
-            <h6
-                *ngIf="item.description"
-                class="card-subtitle mb-2 text-muted">
-                {{item.description}}
-            </h6>
+            <span class="catalog-item__price">Цена: {{item.price}}</span>
             <div class="card-text mb-1" *ngFor="let prop of properties">
                 <span>{{prop["prop"] + ": "}}</span>
                 <span>{{prop["value"]}}</span>
             </div>
-            <span>Цена: {{item.price}}</span>
+            <mat-chip (click)="deleteItem(item.id)" color="warn">Удалить</mat-chip>
         </ng-container>
     </div>
 </div>
-
-<!--<ng-container-->
-<!--    *ngTemplateOutlet="itemProperties"-->
-<!--&gt;-->
-<!--</ng-container>-->

@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
     @HostBinding("class.catalog-header") hostClass = true;
 
     @Output() search: EventEmitter<string> = new EventEmitter();
+    @Output() onAddNavigate: EventEmitter<string> = new EventEmitter();
 
     public searchValue: string;
 
@@ -31,5 +32,9 @@ export class HeaderComponent implements OnInit {
 
     public navigateToMainPage(): void {
         this.router.navigate(["/welcome"]);
+    }
+
+    public navigateToAddItem(): void {
+        this.onAddNavigate.emit();
     }
 }

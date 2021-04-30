@@ -1,8 +1,8 @@
 import {
-    Component,
+    Component, EventEmitter,
     HostBinding,
     Input,
-    OnInit
+    OnInit, Output
 } from "@angular/core";
 import { Item } from "../../../../model/item.model";
 
@@ -16,6 +16,7 @@ export class ItemListComponent implements OnInit {
 
     @Input() public items: Item[];
     @Input() public isOnPopularShowcase = false;
+    @Output() delete: EventEmitter<string> = new EventEmitter();
 
     constructor() {
     }

@@ -6,6 +6,7 @@ import { ItemService } from "./service/http/item.service";
 import { CategoryService } from "./service/http/category.service";
 import { Item } from "./model/item.model";
 import { Category } from "./model/category.model";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 
 @Component({
     selector: "catalog-root",
@@ -18,10 +19,12 @@ export class AppComponent implements OnInit {
     public isSearchItemsExist = false;
     public isOnSearch = false;
     public searchItems: Item[];
-    public adClosed = false;
+    public catsHidden = false;
 
     constructor(private itemService: ItemService,
-                private categoryService: CategoryService) {
+                private categoryService: CategoryService,
+                private router: Router) {
+
     }
 
     ngOnInit(): void {
@@ -30,6 +33,11 @@ export class AppComponent implements OnInit {
         });
         this.categoryService.getEntities().subscribe((cats) => {
             this.categories = cats;
+        });
+        this.router.events.subscribe(e => {
+            if (e instanceof NavigationEnd) {
+                e.url.includes("add") ? this.catsHidden = true : this.catsHidden = false
+            }
         });
     }
 
@@ -46,6 +54,7 @@ export class AppComponent implements OnInit {
         }
         else {
             this.isOnSearch = false;
+            this.searchItems = [];
         }
     }
 
@@ -53,7 +62,7 @@ export class AppComponent implements OnInit {
         return this.items.filter(item => item.name.includes(searchValue.toLowerCase()));
     }
 
-    public onCloseAd(): void {
-        this.adClosed = true;
+    public navigateToAddItem(): void {
+        this.router.navigate(["/add"]);
     }
 }

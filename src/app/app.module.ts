@@ -11,7 +11,6 @@ import { SubcategoryComponent } from "./component/entity/subcategory/subcategory
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HeaderComponent } from "./component/core/header/header.component";
 import { CategoryListComponent } from "./component/entity/category/category-list/category-list.component";
-import { AdComponent } from "./component/core/ad/ad.component";
 import { ItemService } from "./service/http/item.service";
 import { CategoryService } from "./service/http/category.service";
 import { SubcategoryService } from "./service/http/subcategory.service";
@@ -25,6 +24,9 @@ import { NotFoundComponent } from "./component/core/not-found/not-found.componen
 import { CategoryComponent } from "./component/entity/category/category/category.component";
 import { WelcomeComponent } from "./component/core/welcome/welcome.component";
 import { ItemFormComponent } from './component/core/item-form/item-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
     declarations: [
@@ -35,7 +37,6 @@ import { ItemFormComponent } from './component/core/item-form/item-form.componen
         SubcategoryComponent,
         HeaderComponent,
         CategoryListComponent,
-        AdComponent,
         FooterComponent,
         FilterPipe,
         NotFoundComponent,
@@ -49,7 +50,10 @@ import { ItemFormComponent } from './component/core/item-form/item-form.componen
         AppRoutingModule,
         NgbModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatTooltipModule,
+        MatChipsModule
     ],
     providers: [ItemService, CategoryService, SubcategoryService],
     bootstrap: [AppComponent]
